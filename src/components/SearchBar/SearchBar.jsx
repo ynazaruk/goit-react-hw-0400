@@ -13,7 +13,7 @@ const handleSubmit = (event) => {
     onSubmit(query);
 };
 
-    return (
+ return (
 <header>
   <form onSubmit={handleSubmit}>
     <input
@@ -21,6 +21,8 @@ const handleSubmit = (event) => {
       autoComplete="off"
       autoFocus
       placeholder="Search images and photos"
+      value={query}
+      onChange={(event) => setQuery(event.target.value)}
     />
     <button type="submit">Search</button>
   </form>
