@@ -6,11 +6,12 @@ const [query, setQuery] = useState("");
 
 const handleSubmit = (event) => {
     event.preventDefault();
-    if(query.trim === "") {
+    if(query.trim() === "") {
         toast.error("Please enter a search query");
         return;
     }
     onSubmit(query);
+    setQuery("");
 };
 
  return (
