@@ -7,7 +7,7 @@ export const getData = async (query, page) => {
         const response = await axios.get("/search/photos", {
             params: { query, page },
             headers: {
-                Authorization: 'Client-ID rlsrnB77KBHxTJ8Uv6HecuRDhpgcWE_T-F0HPvpMStc'
+                Authorization: "Client-ID rlsrnB77KBHxTJ8Uv6HecuRDhpgcWE_T-F0HPvpMStc"
             }
 
     

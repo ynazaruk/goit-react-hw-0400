@@ -33,28 +33,40 @@ export default function App() {
           } catch (error) {
             setError(error.message);
           } finally {
-            // setLoading(false);
+           setLoading(false);
           }
         };
         fetchData();
         } else {
-        //   setShowBtn(false);
+         setShowBtn(false);
       }
       }, [query, page]);
 
-    const handleSubmit = async (newQuery) => {
+    const handleSubmit = (newQuery) => {
         setQuery(newQuery);
+        setPage(1);
         setImages([]);
 
     }
 
     return (
-        <div>
-            <Toaster />
-            <SearchBar onSubmit={handleSubmit}/>
-            <ImageGallery images={images} />
-            
-        </div>
-        
+      <div className="app">
+      <Toaster />
+      <SearchBar onSubmit={handleSubmit} />
+      {loading && <Loader />}
+      {error && <ErrorMessage message={error} />}
+      {images.length > 0 && (
+        <ImageGallery images={images} onImageClick={openModal} />
+      )}
+      {showBtn && <LoadMoreBtn onLoadMore={loadMoreImages} />}
+      {modalOpen && (
+        <ImageModal
+          image={selectedImage}
+          onClose={closeModal}
+        />
+      )}
+      <div ref={lastImageRef} />
+      
+    </div>
     )
 }
