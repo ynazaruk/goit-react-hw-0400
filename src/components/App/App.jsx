@@ -2,8 +2,12 @@ import { useState, useEffect } from 'react';
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from '../ImageGallery/ImageGallery';
 import { Toaster } from 'react-hot-toast'
-
+import Loader from '../Loader/loader';
 import { getData } from '../../gallery-api';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import ImageModal from '../ImageModal/ImageModal';
+
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 
 export default function App() {
     const [images, setImages] = useState([])
@@ -12,6 +16,7 @@ export default function App() {
     const [page, setPage] = useState(1)
     const [error, setError] = useState(null);
     const [showBtn, setShowBtn] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
 
 
@@ -49,6 +54,19 @@ export default function App() {
 
     }
 
+    const loadMoreImages = () => {
+      setPage(prevPage => prevPage + 1);
+    };
+    const openModal = (imageUrl) => {
+      setSelectedImage(imageUrl);
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setSelectedImage(null);
+      setIsModalOpen(false);
+    };
+    
     return (
       <div className="app">
       <Toaster />
@@ -59,14 +77,14 @@ export default function App() {
         <ImageGallery images={images} onImageClick={openModal} />
       )}
       {showBtn && <LoadMoreBtn onLoadMore={loadMoreImages} />}
-      {modalOpen && (
+      {isModalOpen && (
         <ImageModal
           image={selectedImage}
           onClose={closeModal}
         />
       )}
-      <div ref={lastImageRef} />
-      
+      {/* <div ref={lastImageRef} />
+       */}
     </div>
     )
 }
