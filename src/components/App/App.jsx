@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from '../ImageGallery/ImageGallery';
 import { Toaster } from 'react-hot-toast'
-import Loader from '../Loader/loader';
-import { getData } from '../../gallery-api';
+import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ImageModal from '../ImageModal/ImageModal';
-
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+
+
+import {getData} from "../../gallery-api"
 
 export default function App() {
     const [images, setImages] = useState([])
@@ -23,29 +24,24 @@ export default function App() {
 
 
     useEffect(() => {
-        if (query !== '') {
+        if (query.trim() === '') {
+          return;
+        }
+
           const fetchData = async () => {
-          setLoading(true);
           try {
-            const { data, total_pages } = await getData(query, page);
-              if (page === 1) {
-                setImages(data);
-                
-            } else {
-              setImages(prevImages => [...prevImages, ...data]);
-            }
-            setShowBtn(total_pages && total_pages !== page);
+            setLoading(true);
+            const response = await getData(query, page);
+            setImages(prevImages => [...prevImages, ...response]);
+            setShowBtn(response.length > 0);
           } catch (error) {
-            setError(error.message);
+            setError(true);
           } finally {
            setLoading(false);
           }
         };
         fetchData();
-        } else {
-         setShowBtn(false);
-      }
-      }, [query, page]);
+        }, [query, page]);
 
     const handleSubmit = (newQuery) => {
         setQuery(newQuery);
@@ -68,23 +64,17 @@ export default function App() {
     };
     
     return (
-      <div className="app">
+      <div>
       <Toaster />
       <SearchBar onSubmit={handleSubmit} />
       {loading && <Loader />}
       {error && <ErrorMessage message={error} />}
-      {images.length > 0 && (
+      {images.length > 0 && 
         <ImageGallery images={images} onImageClick={openModal} />
-      )}
+      }
       {showBtn && <LoadMoreBtn onLoadMore={loadMoreImages} />}
-      {isModalOpen && (
-        <ImageModal
-          image={selectedImage}
-          onClose={closeModal}
-        />
-      )}
-      {/* <div ref={lastImageRef} />
-       */}
+      <ImageModal isOpen={isModalOpen} imageUrl={selectedImage} altText="Selected Image" closeModal={closeModal} />
+    
     </div>
     )
 }

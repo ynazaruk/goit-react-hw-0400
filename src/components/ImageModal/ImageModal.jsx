@@ -1,7 +1,11 @@
 import Modal from "react-modal";
-
+Modal.setAppElement("#root")
 
 const customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
     content: {
       top: '50%',
       left: '50%',
@@ -9,9 +13,12 @@ const customStyles = {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      border: 'none',
+    background: 'transparent',
+    padding: 0,
     },
   };
-export default function ImageModal({isOpen, imageUrl, altText, closeModal}) {
+export default function ImageModal({ isOpen, imageUrl, altText, closeModal }) {
 
     const handleKeyDown = (event) => {
         if (event.key === 'Escape') {
@@ -25,7 +32,7 @@ export default function ImageModal({isOpen, imageUrl, altText, closeModal}) {
       };
          
     return (
-<Modal
+      <Modal
       isOpen={isOpen}
       style={customStyles}
       contentLabel="Image Modal"
@@ -35,5 +42,5 @@ export default function ImageModal({isOpen, imageUrl, altText, closeModal}) {
     >
       {imageUrl && <img src={imageUrl} alt={altText} />}
     </Modal>
-    )
-}
+    );
+};

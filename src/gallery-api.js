@@ -12,9 +12,8 @@ export const getData = async (query, page) => {
 
     
         });
-        const total_pages = response.data.total_pages;
-        const data = response.data.results;
-        return { data, total_pages };
+        return response.data.results;
+    
 
     } catch (error) {
         throw new Error("Something went wrong. Please try again later.")

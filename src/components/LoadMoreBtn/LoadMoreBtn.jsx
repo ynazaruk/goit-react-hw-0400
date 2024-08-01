@@ -1,11 +1,13 @@
-export default function LoadMoreBtn({loading}) {
+import css from "./LoadMoreBtn.module.css"
+export default function LoadMoreBtn({onLoadMore, loading}) {
     return (
-        <div>
+        <div className={css.loading}>
             {loading ? ( 
-                <button disabled>
+                <button className={css.button} disabled >
                     <span>Loading...</span>
-                </button>) : (
-                    <button onClick={onLoadMore}>Loaf more</button>
+                </button>
+                ) : (
+                    <button className={css.button} onClick={onLoadMore}>Load more</button>
                 ) }
         </div>
     )
