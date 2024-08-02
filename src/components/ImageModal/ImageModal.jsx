@@ -40,7 +40,7 @@ export default function ImageModal({ isOpen, imageUrl, altText, closeModal }) {
       onKeyDown={handleKeyDown}
       onClick={handleOverlayClick}
     >
-      {imageUrl && <img src={imageUrl} alt={altText} />}
+      {imageUrl && <img src={imageUrl.regular} alt={altText} />}
     </Modal>
     );
 };

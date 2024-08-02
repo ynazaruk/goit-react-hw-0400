@@ -43,7 +43,7 @@ export default function App() {
         fetchData();
         }, [query, page]);
 
-    const handleSubmit = (newQuery) => {
+    const handleSubmit = async (newQuery) => {
         setQuery(newQuery);
         setPage(1);
         setImages([]);
@@ -53,6 +53,7 @@ export default function App() {
     const loadMoreImages = () => {
       setPage(prevPage => prevPage + 1);
     };
+
     const openModal = (imageUrl) => {
       setSelectedImage(imageUrl);
       setIsModalOpen(true);
@@ -76,5 +77,5 @@ export default function App() {
       <ImageModal isOpen={isModalOpen} imageUrl={selectedImage} altText="Selected Image" closeModal={closeModal} />
     
     </div>
-    )
-}
+    );
+};
