@@ -3,7 +3,7 @@ import css from "./Loader.module.css"
 
 export default function Loader() { 
     return (
-    <div className={css.loader}>
+<div className={css.loader}>
         <RotatingLines
   visible={true}
   height="80"
@@ -14,7 +14,7 @@ export default function Loader() {
   wrapperStyle={{}}
   wrapperClass=""
   />
-    </div>
-    )
+</div>
+    );
     
 }
