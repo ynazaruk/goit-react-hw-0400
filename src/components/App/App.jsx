@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from '../ImageGallery/ImageGallery';
 import { Toaster } from 'react-hot-toast'
@@ -73,7 +74,7 @@ export default function App() {
       {images.length > 0 && 
         <ImageGallery images={images} onImageClick={openModal} />
       }
-      {showBtn && <LoadMoreBtn onLoadMore={loadMoreImages} />}
+      {showBtn && !loading && <LoadMoreBtn onLoadMore={loadMoreImages} />}
       <ImageModal isOpen={isModalOpen} imageUrl={selectedImage} altText="Selected Image" closeModal={closeModal} />
     
     </div>
