@@ -1,5 +1,6 @@
 import { RotatingLines } from "react-loader-spinner";
 import css from "./Loader.module.css"
+import { loadESLint } from "eslint";
 
 export default function Loader() { 
     return (
@@ -16,5 +17,4 @@ export default function Loader() {
   />
 </div>
     );
-    
 }
