@@ -1,23 +1,21 @@
 import Modal from "react-modal";
-Modal.setAppElement("#root")
 
 const customStyles = {
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 1000,
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
   },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      border: 'none',
-    background: 'transparent',
-    padding: 0,
-    },
+  overlay: {
+    backgroundColor: "rgba(15, 15, 16, 0.6)",
+  },
   };
+
+  Modal.setAppElement("#root");
+
 export default function ImageModal({ isOpen, imageUrl, altText, closeModal }) {
 
     const handleKeyDown = (event) => {
@@ -32,6 +30,7 @@ export default function ImageModal({ isOpen, imageUrl, altText, closeModal }) {
       };
          
     return (
+      <div>
       <Modal
       isOpen={isOpen}
       style={customStyles}
@@ -40,7 +39,8 @@ export default function ImageModal({ isOpen, imageUrl, altText, closeModal }) {
       onKeyDown={handleKeyDown}
       onClick={handleOverlayClick}
     >
-      {imageUrl && <img src={imageUrl} alt={altText} />}
+      <img src={imageUrl} alt={altText} />
     </Modal>
+    </div>
     );
 }

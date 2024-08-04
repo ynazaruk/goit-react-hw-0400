@@ -19,10 +19,7 @@ export default function App() {
     const [error, setError] = useState(null);
     const [showBtn, setShowBtn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
-
-
-
+    const [selectedImage, setSelectedImage] = useState("");
 
     useEffect(() => {
         if (query.trim() === '') {
@@ -33,7 +30,7 @@ export default function App() {
           try {
             setLoading(true);
             const response = await getData(query, page);
-            setImages(prevImages => [...prevImages, ...response]);
+            setImages((prevImages) => [...prevImages, ...response]);
             setShowBtn(response.length > 0);
           } catch (error) {
             setError(true);
@@ -55,13 +52,12 @@ export default function App() {
       setPage(prevPage => prevPage + 1);
     };
 
-    const openModal = (imageUrl) => {
+    const handleOpenModal = (imageUrl) => {
       setSelectedImage(imageUrl);
       setIsModalOpen(true);
     };
   
     const closeModal = () => {
-      setSelectedImage(null);
       setIsModalOpen(false);
     };
     
@@ -72,7 +68,7 @@ export default function App() {
       {loading && <Loader />}
       {error && <ErrorMessage message={error} />}
       {images.length > 0 && 
-        <ImageGallery images={images} onImageClick={openModal} />
+        <ImageGallery images={images} onImageClick={handleOpenModal} />
       }
       {showBtn && !loading && <LoadMoreBtn onLoadMore={loadMoreImages} />}
       <ImageModal isOpen={isModalOpen} imageUrl={selectedImage} altText="Selected Image" closeModal={closeModal} />
